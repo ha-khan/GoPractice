@@ -1,15 +1,15 @@
 package main
 
 import (
+	"GoPractice/utils"
 	"fmt"
 	"math/rand"
 	"sort"
-	"time"
 )
 
 func main() {
-	slice := []int{2, 3, 5, 5, 5, 5, 5, 5, 6, 7, 8, 11, 11, 11, 13}
-	//slice := generateSlice(1000)
+	// slice := []int{2, 3, 5, 5, 5, 5, 5, 5, 6, 7, 8, 11, 11, 11, 13}
+	slice := utils.GenerateSlice(20)
 	fmt.Println("\n--- Unsorted --- \n\n", slice)
 	//slice = mergesort(slice)
 	//slice = quicksort(slice
@@ -95,21 +95,6 @@ func merge(a, b []int) []int {
 	}
 
 	return sorted
-}
-
-/*
-Taken from online source
-
-https://www.golangprograms.com/golang-program-for-implementation-of-quick-sort.html
-*/
-func generateSlice(size int) []int {
-
-	slice := make([]int, size, size)
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < size; i++ {
-		slice[i] = rand.Intn(999) - rand.Intn(999)
-	}
-	return slice
 }
 
 /*

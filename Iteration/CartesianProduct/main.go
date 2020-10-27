@@ -34,7 +34,6 @@ func cartesianProduct(input ...[]int) [][]int {
 	var init [][]int
 	init = append(init, []int{})
 	for _, v := range input {
-		//fmt.Printf(fmt.Sprintf("v: %#v, init: %#v \n", v, init))
 		init = helper(v, init)
 	}
 
