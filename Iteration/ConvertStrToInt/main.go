@@ -2,105 +2,61 @@ package main
 
 import (
 	"fmt"
-	"reflect"
-	"time"
 )
 
-func yo(input ...int) {
+/*
 
-	fmt.Println(len(input))
+A string may encode an integer, e.g., "123" encodes 123. In this problem,
+you are to implement methods that take a string representing an integer and
+return the corresponding integer, and vice versa.
 
+ASCII 0-9 [48-57]
+
+*/
+func convertStrToInt(integer string) int {
+
+	var solution int
+
+	for _, val := range integer {
+		solution = solution*10 + (int(val) - 48)
+	}
+
+	return solution
 }
 
-type (
-	yochan chan int
-)
+func convertIntToString(integer int) string {
+	var (
+		solution string
+		digits   = integer
+	)
 
-var dude int
+	for digits > 0 {
+		solution = string(digits%10+48) + solution
+		digits /= 10
+	}
 
-func (y *yochan) IsYo() {
-
-	fmt.Println("erpiojtpyej")
-
+	return solution
 }
 
-type dope interface {
-	IsYo()
-}
-
-var newErr error
-
-type fn func() bool
-
-type fnn fn
-
-func (f *fn) What() {
-	defer func() {
-
-		if p := recover(); p != nil {
-			fmt.Println("Recovered")
-			fmt.Println(p)
+func convertInputs(input ...interface{}) {
+	for _, val := range input {
+		switch concreteType := val.(type) {
+		case string:
+			fmt.Println(convertStrToInt(concreteType))
+		case int:
+			fmt.Println(convertIntToString(concreteType))
+		default:
+			panic(fmt.Sprintf("unknown type: %+v", concreteType))
 		}
-	}()
-
-	panic(231)
+	}
 }
 
 func main() {
 
-	var (
-		cc        yochan
-		cool, bro fn
-		coool     fnn
-		age       int = 23
-		d         chan dope
-	)
+	input := make([]interface{}, 0)
 
-	fmt.Println(age)
+	input = append(input, "123", 123, "342", 213)
 
-	d = make(chan dope, 2)
+	convertInputs(input...)
 
-	d <- &cc
-
-	cc.IsYo()
-
-	dude = 123
-
-	cool = func() bool { return true }
-
-	bro = cool
-
-	bro()
-
-	coool = func() bool { return true }
-
-	go cool.What()
-
-	time.Sleep(1 * time.Second)
-
-	fmt.Println(string('a'))
-
-	cool()
-	coool()
-
-	//asciiToInt := map[rune]int{rune()}
-	y := "ȹsȹ"
-	x := y[0]
-
-	rx := reflect.TypeOf(x)
-	fmt.Println(string(x))
-	fmt.Println(rx.Size())
-
-	for _, rn := range y {
-
-		temp := reflect.TypeOf(rn)
-		fmt.Println(temp.Name())
-		fmt.Println(string(rn))
-	}
-
-	fmt.Println(4_2)
-
-	mm := []int{1, 23, 4, 5, 5}
-
-	fmt.Println(mm[-1])
 }

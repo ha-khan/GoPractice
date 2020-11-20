@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// slice := []int{2, 3, 5, 5, 5, 5, 5, 5, 6, 7, 8, 11, 11, 11, 13}
-	slice := utils.GenerateSlice(20)
+	slice := utils.BuildIntSlice(20, true)
 	fmt.Println("\n--- Unsorted --- \n\n", slice)
 	//slice = mergesort(slice)
 	//slice = quicksort(slice
