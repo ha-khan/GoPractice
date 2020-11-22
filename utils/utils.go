@@ -5,6 +5,37 @@ import (
 	"time"
 )
 
+// CopyMap returns a copy of the MAP passed in
+func CopyMap(env map[string]interface{}) map[string]interface{} {
+
+	var mp = make(map[string]interface{})
+
+	for key, val := range env {
+		mp[key] = val
+	}
+
+	return mp
+
+}
+
+// Min returns the minimum of the two integer params
+func Min(a, b int) int {
+	if a < b {
+		return a
+	}
+
+	return b
+}
+
+// Max returns the maximum of the two integer params
+func Max(a, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
+}
+
 // BuildIntSlice of random integers
 func BuildIntSlice(size int, positive bool) []int {
 

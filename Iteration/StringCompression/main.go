@@ -15,6 +15,13 @@ if "compressed" string is greater than uncompressed, then return uncompressed st
 */
 
 // Assume A-Z, a-Z
+/*
+
+Approach is two iterators that utilize the dynamically resizing sliding window technique
+where the slow iterator is the beginning of the substr and the fast will iterate and count until sequential chars/runes
+are not found, in which case we then increment slow to fast and append the
+
+*/
 func compressString(str string) string {
 
 	var (

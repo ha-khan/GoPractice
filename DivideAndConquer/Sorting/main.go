@@ -97,43 +97,6 @@ func merge(a, b []int) []int {
 	return sorted
 }
 
-/*
-Taken from online source
-
-https://www.golangprograms.com/golang-program-for-implementation-of-quick-sort.html
-*/
-func quicksort(a []int) []int {
-	if len(a) < 2 {
-		return a
-	}
-
-	left, right := 0, len(a)-1
-
-	pivot := rand.Int() % len(a)
-
-	// Move pivot's value to end of slice (right most idx)
-	// Overwrite pivot's idx with right most idx value
-	a[pivot], a[right] = a[right], a[pivot]
-
-	for i := range a {
-
-		// slowly build up left most portion of slice starting at index 0
-		// at end of iteration all elements a[:left] is guaranteed to be less than pivot
-		if a[i] < a[right] {
-			a[left], a[i] = a[i], a[left]
-			left++
-		}
-	}
-
-	a[left], a[right] = a[right], a[left]
-
-	// recurse
-	quicksort(a[:left])
-	quicksort(a[left+1:])
-
-	return a
-}
-
 func quicksortmemory(list []int, pivot int) []int {
 
 	var (
