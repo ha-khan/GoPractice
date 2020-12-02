@@ -1,12 +1,17 @@
 package utils
 
-// BinaryTreeNode is node
-type BinaryTreeNode struct {
-	Val         interface{}
-	Left, Right *BinaryTreeNode
+// BinaryTree ..
+type BinaryTree struct {
+	Root *TreeNode
 }
 
-// BinaryTree is a wrapper struct around the BinaryTreeNode struct and contains a single
-type BinaryTree struct {
-	Root *BinaryTreeNode
+// TreeNode ...
+type TreeNode struct {
+	Value       interface{}
+	Right, Left *TreeNode
+}
+
+// NewBinaryTree is the constructor that returns
+func NewBinaryTree() *BinaryTree {
+	return nil
 }
