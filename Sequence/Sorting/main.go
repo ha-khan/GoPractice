@@ -3,7 +3,6 @@ package main
 import (
 	"GoPractice/utils"
 	"fmt"
-	"math/rand"
 	"sort"
 )
 
@@ -13,7 +12,7 @@ func main() {
 	fmt.Println("\n--- Unsorted --- \n\n", slice)
 	//slice = mergesort(slice)
 	//slice = quicksort(slice
-	sort.Ints(slice)
+	sort.Ints(slice) // NOTE: Within function call this will type cast to IntSlice()
 	fmt.Println("\n--- Sorted ---\n\n", slice)
 	deleteDuplicate(slice)
 	fmt.Println("\n--- Delete Duplicate---\n\n", slice)

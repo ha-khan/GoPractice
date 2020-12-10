@@ -45,6 +45,7 @@ func checkWellFormed(s string) bool {
 // Remove symbol at idx or not remove at idx add + 1 for each removal and increment idx to next start point..
 // The resulting string (end node) should then be checked, and if its not in the correct form then add a weight of 10000000
 // TODO: Optimize by stopping recursion prematurely and probably cache results also
+// Essentially a DFS on the recursive call graph
 func sortTwoWord(s string, idx int) float64 {
 
 	// Base case is when idx is incremented beyond size of string
