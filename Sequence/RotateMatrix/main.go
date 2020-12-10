@@ -15,4 +15,10 @@ func main() {
 
 	fmt.Println(matrix)
 
+	str := "hello"
+
+	str2 := str[5:]
+
+	fmt.Println(str2)
+
 }
