@@ -62,3 +62,27 @@ func BuildMatrix(m, n int) [][]int {
 
 	return matrix
 }
+
+// BinarySearch implements the BinarySearch algorithm on a sorted array/slice of numbers
+func BinarySearch(numbers []int, target int) (idx, val int) {
+
+	// Two iterators that represent the bounds by which the array is
+	low, high := 0, len(numbers)-1
+
+	for low <= high {
+
+		// takes the floor
+		midpoint := (low + high) / 2
+
+		if numbers[midpoint] < target {
+			low = midpoint + 1
+		} else if numbers[midpoint] > target {
+			high = midpoint - 1
+		} else {
+			return midpoint, target
+		}
+	}
+
+	return -1, -1
+
+}

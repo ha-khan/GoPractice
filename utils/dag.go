@@ -18,7 +18,7 @@ func NewDagNode(dependencies []*DagNode, val interface{}) (node *DagNode) {
 }
 
 // OutEdges ...
-type OutEdges []*DagNode
+type OutEdges []*DagNode /*make OutEdge struct and embed a weight*/
 
 // DAG ... is the class definition for DAG objects
 type DAG struct {

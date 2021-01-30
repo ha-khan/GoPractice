@@ -43,6 +43,9 @@ func (l *LinkedList) PushBack(val interface{}) {
 // PrintList ...
 func (l LinkedList) PrintList() {
 	for curr := l.Root; curr != nil; curr = curr.Next {
-		fmt.Println(curr.Value)
+		fmt.Print(fmt.Sprintf("%d->", curr.Value))
 	}
+
+	fmt.Println("NULL")
+
 }

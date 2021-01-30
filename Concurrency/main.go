@@ -25,7 +25,7 @@ func main() {
 	dat = append(dat, byte(2))
 
 	// Creates a variable of some type, and giving it the zero value for that type
-	var shift shifter = func(data *byte) { *data = *data << 1 }
+	var shift = shifter(func(data *byte) { *data = *data << 1 })
 
 	for idx := range dat {
 
