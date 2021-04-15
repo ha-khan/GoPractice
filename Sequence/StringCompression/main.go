@@ -55,6 +55,7 @@ func compressString(str string) string {
 		return compressedStr
 	}
 
+	return str
 }
 
 func main() {

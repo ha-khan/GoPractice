@@ -7,11 +7,6 @@ import (
 	"time"
 )
 
-// type keyword allows you to create your own user defined types
-// similar to class in java
-
-// struct, interface, string, map, int32, rune, byte .. are all built-in types in Go
-
 type rawData []byte
 
 type shifter func(data *byte)

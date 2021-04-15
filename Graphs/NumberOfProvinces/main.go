@@ -21,7 +21,7 @@ func main() {
 
 	data = [][]int{[]int{1, 1, 0, 0, 0, 0}, []int{1, 1, 0, 0, 0, 0}, []int{0, 0, 1, 1, 1, 0},
 		[]int{0, 0, 1, 1, 0, 0}, []int{0, 0, 1, 0, 1, 0}, []int{0, 0, 0, 0, 0, 1}}
-	fmt.Printf("Matrix: %+v, Provinces: %d\n", data, findCircleNum(data))s
+	fmt.Printf("Matrix: %+v, Provinces: %d\n", data, findCircleNum(data))
 }
 
 /*
