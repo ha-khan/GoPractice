@@ -1,7 +1,11 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	calcEquation(nil, nil, nil)
 }
 
 /*
@@ -42,5 +46,11 @@ func calcEquation(equations [][]string, values []float64, queries [][]string) []
 	// 	 2. Directed & Weighted Edges are the given result of the relation /.
 	//
 	//	 So, (a) --2.0--> (b)
+
+	for _, value := range "hello" {
+		fmt.Println(fmt.Sprintf("%0x", value))
+	}
+
+	return nil
 
 }
