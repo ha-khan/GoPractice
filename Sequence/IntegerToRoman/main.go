@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 )
@@ -69,15 +70,68 @@ func main() {
 			continue
 		}
 
-		fmt.Printf("Decimal Input: %s\n", scanner.Text())
-		fmt.Printf("Roman Numeral Input: %s\n", intToRoman(input))
-	}
+		if input < 1 || input > 4000 {
+			fmt.Println("Inputted integer must be between 1 <= x <= 3999")
+			continue
+		}
 
+		fmt.Printf("Decimal Input: %s\n", scanner.Text())
+		fmt.Printf("Roman Numeral Input: %s\n", intToRoman(input, 1))
+	}
 }
 
-func intToRoman(input int) string {
+func intToRoman(remaining, power int) string {
+	decimal := remaining % 10
+
+	if decimal > 0 {
+		return intToRoman(remaining/10, power+1) + computeRomanSymbol(power, decimal)
+	}
+
+	if decimal == 0 && power == 1 {
+		return RomanSymbolMap[remaining]
+	}
 
 	return ""
 }
 
-func romanToInt(input string) int {return 0}
+func romanToInt(input string) int { return 0 }
+
+func computeRomanSymbol(power, number int) string {
+	high := int(math.Pow10(power))
+	midpoint := high / 2
+	low := int(math.Pow10(power - 1))
+
+	switch scaledNumber := number * (int(math.Pow10(power - 1))); scaledNumber {
+	case 4, 40, 400:
+		return RomanSymbolMap[low] + RomanSymbolMap[midpoint]
+	case 9, 90, 900:
+		return RomanSymbolMap[low] + RomanSymbolMap[high]
+	default:
+		if symbol, ok := RomanSymbolMap[scaledNumber]; ok {
+			return symbol
+		}
+		// either 3, 2, or 1
+		if scaledNumber > midpoint {
+			iterAmount := (scaledNumber - midpoint) / int(math.Pow10(power-1))
+			// TODO: bug here, need to scale the larger symbol, 123 -> CXXIII, but this will compute CXIII
+			return RomanSymbolMap[midpoint] + scale(RomanSymbolMap[low], iterAmount)
+		}
+
+		if scaledNumber < midpoint {
+			iterAmount := (scaledNumber - low + 1) / int(math.Pow10(power-1))
+			return scale(RomanSymbolMap[low], iterAmount)
+		}
+		// shouldn't be reached
+		return ""
+	}
+}
+
+func scale(symbol string, amount int) string {
+	if amount > 0 {
+		return scale(symbol, amount-1) + symbol
+	}
+
+	return ""
+}
+
+var RomanSymbolMap = map[int]string{1: "I", 5: "V", 10: "X", 50: "L", 100: "C", 500: "D", 1000: "M"}
