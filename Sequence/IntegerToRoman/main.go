@@ -58,6 +58,8 @@ Constraints:
 
 
 */
+var RomanSymbolMap = map[int]string{1: "I", 5: "V", 10: "X", 50: "L", 100: "C", 500: "D", 1000: "M"}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
@@ -80,18 +82,30 @@ func main() {
 	}
 }
 
+/*
+way too complex functional approach to solve the problem.
+
+
+
+*/
 func intToRoman(remaining, power int) string {
 	decimal := remaining % 10
+
+	if remaining == 0 {
+		return ""
+	}
 
 	if decimal > 0 {
 		return intToRoman(remaining/10, power+1) + computeRomanSymbol(power, decimal)
 	}
 
 	if decimal == 0 && power == 1 {
-		return RomanSymbolMap[remaining]
+		if symbol, ok := RomanSymbolMap[remaining]; ok {
+			return symbol
+		}
 	}
 
-	return ""
+	return intToRoman(remaining/10, power+1)
 }
 
 func romanToInt(input string) int { return 0 }
@@ -113,12 +127,11 @@ func computeRomanSymbol(power, number int) string {
 		// either 3, 2, or 1
 		if scaledNumber > midpoint {
 			iterAmount := (scaledNumber - midpoint) / int(math.Pow10(power-1))
-			// TODO: bug here, need to scale the larger symbol, 123 -> CXXIII, but this will compute CXIII
 			return RomanSymbolMap[midpoint] + scale(RomanSymbolMap[low], iterAmount)
 		}
 
 		if scaledNumber < midpoint {
-			iterAmount := (scaledNumber - low + 1) / int(math.Pow10(power-1))
+			iterAmount := ((scaledNumber - low) / int(math.Pow10(power-1))) + 1
 			return scale(RomanSymbolMap[low], iterAmount)
 		}
 		// shouldn't be reached
@@ -133,5 +146,3 @@ func scale(symbol string, amount int) string {
 
 	return ""
 }
-
-var RomanSymbolMap = map[int]string{1: "I", 5: "V", 10: "X", 50: "L", 100: "C", 500: "D", 1000: "M"}
