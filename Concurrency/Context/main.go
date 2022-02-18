@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 	"time"
-
 )
 
 func main() {
@@ -12,8 +11,8 @@ func main() {
 	notify = make(chan struct{})
 	ctx, cancel := context.WithCancel(context.TODO())
 	go StartApp(ctx, notify)
-	go func(){
-		time.Sleep(5*time.Second)
+	go func() {
+		time.Sleep(5 * time.Second)
 		cancel()
 	}()
 

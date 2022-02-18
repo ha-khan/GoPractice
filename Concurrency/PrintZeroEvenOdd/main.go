@@ -127,11 +127,13 @@ func NewZeroEvenOdd(n int) *ZeroEvenOdd {
 
 type ZeroEvenOdd struct {
 	n         int
-	zero      chan chan struct{} // bi-directional chan that recvs send only chan
+	zero      chan chan struct{}
 	even, odd chan struct{}
 }
 
-// need to keep count that last
+// each thread sends a channel that will signal the other thread
+// to be unblocked, and then itself be blocked, the other thread will repeat the process by sending a channel
+// that will be unblock the first thread ... and so on
 func (z *ZeroEvenOdd) Zero(fn print) {
 	for writeChan := range z.zero {
 		fn(0)
