@@ -11,6 +11,12 @@ func (q *Query) DoGet() error {
 	return nil
 }
 
+/*
+
+Variables of type 'interface' can hold 'values' of any type that implements all the methods defined by the 'interface'
+
+
+*/
 func main() {
 
 	var query *Query
