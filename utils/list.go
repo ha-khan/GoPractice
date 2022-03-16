@@ -9,19 +9,19 @@ type LinkedList struct {
 
 // ListNode is a composite type that
 type ListNode struct {
-	Value interface{}
+	Value any
 	Next  *ListNode
 }
 
 // NewLinkedList is the default constructor for creating a new LinkedList instance
 // Where the root is pointing to a ListNode that wraps around the inputted val interface{}
-func NewLinkedList(val interface{}) *LinkedList {
+func NewLinkedList(val any) *LinkedList {
 	return &LinkedList{Root: &ListNode{Value: val, Next: nil}}
 }
 
 // PushBack will insert the inputted item at the end of the LinkedList
 // Time Complexity ~ O(n)
-func (l *LinkedList) PushBack(val interface{}) {
+func (l *LinkedList) PushBack(val any) {
 
 	var (
 		cursor *ListNode = l.Root
