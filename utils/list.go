@@ -13,6 +13,11 @@ type ListNode struct {
 	Next  *ListNode
 }
 
+// ListIterator
+type ListIterator struct {
+	curr *ListNode
+}
+
 // NewLinkedList is the default constructor for creating a new LinkedList instance
 // Where the root is pointing to a ListNode that wraps around the inputted val interface{}
 func NewLinkedList(val any) *LinkedList {
@@ -22,7 +27,6 @@ func NewLinkedList(val any) *LinkedList {
 // PushBack will insert the inputted item at the end of the LinkedList
 // Time Complexity ~ O(n)
 func (l *LinkedList) PushBack(val any) {
-
 	var (
 		cursor *ListNode = l.Root
 	)
@@ -37,7 +41,6 @@ func (l *LinkedList) PushBack(val any) {
 	cursor.Next = new(ListNode)
 	cursor.Next.Value = val
 	cursor.Next.Next = nil
-
 }
 
 // PrintList ...
@@ -47,5 +50,10 @@ func (l LinkedList) PrintList() {
 	}
 
 	fmt.Println("NULL")
+}
 
+func (l LinkedList) Begin() *ListIterator {
+	return &ListIterator{
+		curr: l.Root,
+	}
 }
