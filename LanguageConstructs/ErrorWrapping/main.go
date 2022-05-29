@@ -37,9 +37,11 @@ func (e *QueryError) Unwrap() error {
 	return e.Err
 }
 
-// Compares this QueryError's err, needed for errors.Is similar linked list traversal to errors.As
+// Compares this QueryError's value, needed for errors.Is similar linked list traversal to errors.As
 // except this one looks at each error nodes Error() value, rather than the concrete type that implements
 // the errors interface
+//
+// Essentially a DFS where halting condition  is string comparison match
 func (e *QueryError) Is(err error) bool {
 	return e.Error() == err.Error()
 }
@@ -67,12 +69,12 @@ func main() {
 
 	err = DoQuery("google.com")
 	if err != nil {
-		// At this moment we don't know the extent of the error wrapping LL that has been constructed
+		// At this moment we don't know the extent of the error wrapping Linked List that has been constructed
 		// thus far, we can traverse it to see if a specific errors node is some concrete type that
 		// gives information on the "root" of the error, mainly by going to the tail node
 		var urlErr = &url.Error{}
 		if errors.As(err, &urlErr) {
-			// Can dump more state information close to root of error
+			// Can dump more state (without stringify) information close to root of error
 			fmt.Println(fmt.Sprintf("%+v", *urlErr))
 		}
 
