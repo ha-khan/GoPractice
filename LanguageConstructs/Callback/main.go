@@ -9,12 +9,12 @@ import (
 	"time"
 )
 
-type Computation struct{}
+type Worker struct{}
 
 type callback func(io.Reader) error
 
 // method compute will invoke callback after main processing is done
-func (c *Computation) Compute(ctx context.Context, cb callback) {
+func (w *Worker) Compute(ctx context.Context, cb callback) {
 	var buffer = bytes.NewBufferString("Done!")
 	time.Sleep(1 * time.Second)
 
@@ -24,7 +24,7 @@ func (c *Computation) Compute(ctx context.Context, cb callback) {
 
 func main() {
 	var (
-		worker Computation
+		worker Worker
 		wait   = make(chan struct{})
 	)
 
