@@ -10,7 +10,6 @@ Assume it is only composed of ASCII characters
 
 */
 func isUnique(str string) bool {
-
 	for idx, val := range str {
 		for idx2, val2 := range str {
 			if idx != idx2 && val == val2 {
@@ -20,11 +19,9 @@ func isUnique(str string) bool {
 	}
 
 	return true
-
 }
 
 func isUniqueMemory(str string) bool {
-
 	cache := make(map[string]interface{})
 
 	for _, val := range str {
