@@ -5,18 +5,20 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"time"
 )
 
-var buffer = bytes.NewBufferString("")
-
 type Computation struct{}
 
-type callback func(io.Writer) error
+type callback func(io.Reader) error
 
 // method compute will invoke callback after main processing is done
 func (c *Computation) Compute(ctx context.Context, cb callback) {
+	var buffer = bytes.NewBufferString("Done!")
 	time.Sleep(1 * time.Second)
+
+	// invoke passed in callback; which extends computation with custom logic
 	cb(buffer)
 }
 
@@ -26,12 +28,13 @@ func main() {
 		wait   = make(chan struct{})
 	)
 
-	worker.Compute(context.Background(), func(w io.Writer) error {
+	worker.Compute(context.Background(), func(r io.Reader) error {
 		defer close(wait)
-		_, err := w.Write([]byte("done"))
+
+		buffer, err := ioutil.ReadAll(r)
+		fmt.Println(string(buffer))
 		return err
 	})
 
 	<-wait
-	fmt.Println(buffer)
 }
