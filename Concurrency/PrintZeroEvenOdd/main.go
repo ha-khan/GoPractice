@@ -94,6 +94,8 @@ func driver(n int) string {
 		str string
 	)
 
+	// critical section
+	// a shared resource that is a buffer
 	printNumber := print(func(n int) {
 		str = (str + strconv.Itoa(n))
 		if n != 0 {

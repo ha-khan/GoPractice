@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// context.Context provides a type to help with preemption
+
 func main() {
 	var notify chan struct{}
 	notify = make(chan struct{})
