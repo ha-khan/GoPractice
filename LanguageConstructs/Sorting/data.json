@@ -1,0 +1,36 @@
+{
+    "virtualNetworks": [
+        {
+            "name": "vlan-0",
+            "networkPrefix": "192.0.2"
+        },
+        {
+            "name": "vlan-2",
+            "networkPrefix": "192.0.4"
+        },
+        {
+            "name": "vlan-001",
+            "networkPrefix": "192.0.1"
+        },
+        {
+            "name": "vlan-control-conn",
+            "networkPrefix": "192.0.8"
+        },
+        {
+            "name": "vlan-data-plane",
+            "networkPrefix": "192.0.10"
+        },
+        {
+            "name": "vlan-control",
+            "networkPrefix": "192.0.21"
+        },
+        {
+            "name": "vlan-internal",
+            "networkPrefix": "192.0.8"
+        },
+        {
+            "name": "vlan-9",
+            "networkPrefix": "192.0.9"
+        }
+    ]
+}
