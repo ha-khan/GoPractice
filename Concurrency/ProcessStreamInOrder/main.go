@@ -5,6 +5,8 @@ import (
 	"container/heap"
 	"fmt"
 	"math/rand"
+	"sync"
+	"time"
 )
 
 type Message struct {
@@ -13,16 +15,24 @@ type Message struct {
 }
 
 type StreamConsumer struct {
+
+	// represents "where" we are processing the stream
 	streamIndex int
-	pq          interface {
+
+	// priority queue acts as a buffer to keep track of messages from stream
+	// that been consumed out of order from what our current streamIndex is expecting
+	pq interface {
 		heap.Interface
 		Peek() *queue.Item
 	}
+
+	// lock critical section of priority queue and streamIndex
+	mutex *sync.Mutex
 }
 
 func (s *StreamConsumer) Process(msg Message) {
-	// if currently submitted msg matches our expected place in the stream
-	// we process it, and increment the index
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
 	if msg.SequenceNumber == s.streamIndex {
 		fmt.Print(msg.Value, " ")
 		s.streamIndex++
@@ -56,15 +66,32 @@ func main() {
 		s = StreamConsumer{
 			streamIndex: 1,
 			pq:          &queue.PriorityQueue{},
+			mutex:       &sync.Mutex{},
 		}
+
+		wg = &sync.WaitGroup{}
 	)
 
+	// expect all messages to be processed
+	wg.Add(len(messages))
+
+	// randomize the message stream
+	rand.Seed(time.Now().Unix())
 	rand.Shuffle(len(messages), func(i, j int) {
 		messages[i], messages[j] = messages[j], messages[i]
 	})
 
+	// process message stream in a separate go routine each
+	// adds more randomness with respect to order
 	for _, val := range messages {
-		s.Process(val)
+		msg := val
+		go func() {
+			defer wg.Done()
+			s.Process(msg)
+		}()
 	}
+
+	// block until all go routines return
+	wg.Wait()
 	fmt.Print("\n")
 }
