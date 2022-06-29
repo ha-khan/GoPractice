@@ -21,7 +21,7 @@ type StreamConsumer struct {
 
 	// priority queue acts as a buffer to keep track of messages from stream
 	// that been consumed out of order from what our current streamIndex is expecting
-	pq interface {
+	buffer interface {
 		heap.Interface
 		Peek() *queue.Item
 	}
@@ -37,17 +37,17 @@ func (s *StreamConsumer) Process(msg Message) {
 		fmt.Print(msg.Value, " ")
 		s.streamIndex++
 		for {
-			head := s.pq.Peek()
+			head := s.buffer.Peek()
 			if head != nil && head.GetPriority() == s.streamIndex {
 				fmt.Print(head.GetValue(), " ")
-				heap.Pop(s.pq)
+				heap.Pop(s.buffer)
 				s.streamIndex++
 			} else {
 				return
 			}
 		}
 	} else {
-		heap.Push(s.pq, queue.NewItem(msg.Value, msg.SequenceNumber))
+		heap.Push(s.buffer, queue.NewItem(msg.Value, msg.SequenceNumber))
 	}
 }
 
@@ -65,7 +65,7 @@ func main() {
 
 		s = StreamConsumer{
 			streamIndex: 1,
-			pq:          &queue.PriorityQueue{},
+			buffer:      &queue.PriorityQueue{},
 			mutex:       &sync.Mutex{},
 		}
 
