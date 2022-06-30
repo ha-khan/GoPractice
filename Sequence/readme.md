@@ -1,2 +1,0 @@
-# Overview
-problems where the underlying structure is a "sequence" of somekind where the internal representation is a contigious array of memory. Technically a linked list would fit the definition of a "sequence", but fails when the contraint of contigious array of memory is placed.

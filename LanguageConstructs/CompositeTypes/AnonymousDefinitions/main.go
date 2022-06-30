@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net"
 )
 
@@ -21,11 +22,19 @@ type Config struct {
 		IP   net.IP
 		Port int32
 	}
+
+	// anonymous interface definition which is itself a
+	// composition of anonymous interfaces
+	Any interface {
+		error
+		io.ReadWriter
+		Done() <-chan struct{}
+	}
 }
 
 func main() {
-
 	// Allows you to quickly check whether a passed in concrete type implements a method
+	// Without having to alias that specific interface
 	var query *Query
 	func(q interface{}) {
 		if _, ok := q.(interface {

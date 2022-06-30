@@ -11,7 +11,7 @@ import (
 
 type Worker struct{}
 
-type callback func(io.Reader) error
+type callback func(io.Reader, error) error
 
 // method compute will invoke callback after main processing is done
 func (w *Worker) Compute(ctx context.Context, cb callback) {
@@ -19,7 +19,7 @@ func (w *Worker) Compute(ctx context.Context, cb callback) {
 	time.Sleep(1 * time.Second)
 
 	// invoke passed in callback; which extends computation with custom logic
-	cb(buffer)
+	cb(buffer, nil)
 }
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 		wait   = make(chan struct{})
 	)
 
-	worker.Compute(context.Background(), func(r io.Reader) error {
+	worker.Compute(context.Background(), func(r io.Reader, e error) error {
 		defer close(wait)
 
 		buffer, err := ioutil.ReadAll(r)
