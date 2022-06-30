@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GoPractice/Concurrency/ProcessStreamInOrder/queue"
+	"GoPractice/ProblemSets/Asynchronous/ProcessStreamInOrder/queue"
 	"container/heap"
 	"fmt"
 	"math/rand"
