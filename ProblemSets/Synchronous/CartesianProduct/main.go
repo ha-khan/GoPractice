@@ -3,21 +3,19 @@ package main
 import "fmt"
 
 func main() {
-
 	a := []int{1, 2, 3}
 	b := []int{4, 5}
 	c := []int{6}
 
 	lt := [][]int{a, b, c}
 
-	cart := cartesianProduct(lt...)
+	solution := CartesianProduct(lt...)
 
-	fmt.Println(cart)
+	fmt.Println(solution)
 }
 
-func cartesianProduct(input ...[]int) [][]int {
-
-	helper := func(a []int, b [][]int) [][]int {
+func CartesianProduct(input ...[]int) [][]int {
+	fn := func(a []int, b [][]int) [][]int {
 		var sol [][]int
 		for _, v1 := range a {
 			for _, v2 := range b {
@@ -34,7 +32,7 @@ func cartesianProduct(input ...[]int) [][]int {
 	var init [][]int
 	init = append(init, []int{})
 	for _, v := range input {
-		init = helper(v, init)
+		init = fn(v, init)
 	}
 
 	return init

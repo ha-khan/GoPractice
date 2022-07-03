@@ -1,26 +1,23 @@
 package main
 
-import (
-	"fmt"
-)
-
-type implementer interface {
-	Start() <-chan int
-}
-
-type FSM struct {
-	orign func() bool
-}
+import "fmt"
 
 func main() {
+	fmt.Println(fibonacci(40))
+}
 
-	fmt.Println("Running")
+type cache map[int]int
 
-	var f FSM
+var c = make(cache)
 
-	f.orign = func() bool {
-		return true
+func fibonacci(n int) int {
+	if n == 0 {
+		return 0
 	}
 
-	go f.orign()
+	if n == 1 {
+		return 1
+	}
+
+	return fibonacci(n-1) + fibonacci(n-2)
 }
