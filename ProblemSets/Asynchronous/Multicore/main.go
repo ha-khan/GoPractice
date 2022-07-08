@@ -22,6 +22,8 @@ func main() {
 
 	var start = time.Now()
 	var done = make(chan []int, 2)
+	defer close(done)
+
 	var size = 10_000_000
 	var halfSize = size / 2
 
