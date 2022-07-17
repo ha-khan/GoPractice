@@ -29,8 +29,7 @@ func CartesianProduct(input ...[]int) [][]int {
 		return sol
 	}
 
-	var init [][]int
-	init = append(init, []int{})
+	var init = [][]int{{}}
 	for _, v := range input {
 		init = fn(v, init)
 	}

@@ -18,10 +18,17 @@ func main() {
 	ints = append(ints, []int{10, 11, 12, 13, 14, 15}...)
 	fmt.Println(ints)
 
+	//
 	fmt.Println(ints[0:2]) // prints idx 0, 1
 	fmt.Println(ints[2:])
 	fmt.Println(ints[:16])
 
+	// the slice to copy values to needs to be the
+	// exact length as the slice that elements are being
+	// copied from
+	//
+	// otherwise zero values or not values would be added to
+	// the copied slice
 	var integers = make([]int, len(ints))
 	copy(integers, ints)
 
