@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"sync"
 	"time"
 )
 
@@ -23,18 +24,17 @@ func (w *Worker) Compute(ctx context.Context, cb callback) {
 }
 
 func main() {
-	var (
-		worker Worker
-		wait   = make(chan struct{})
-	)
+	var worker Worker
+	var wg = sync.WaitGroup{}
 
+	wg.Add(1)
 	worker.Compute(context.Background(), func(r io.Reader, e error) error {
-		defer close(wait)
+		defer wg.Done()
 
 		buffer, err := ioutil.ReadAll(r)
 		fmt.Println(string(buffer))
 		return err
 	})
 
-	<-wait
+	wg.Wait()
 }
