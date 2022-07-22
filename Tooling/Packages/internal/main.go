@@ -3,13 +3,12 @@ package main
 import (
 	// need to specify the module name ~ GoPractice
 	// where GOROOT is auto-set
-	"GoPractice/LanguageConstructs/Packages/internal/helpers"
+	"GoPractice/Tooling/Packages/internal/helpers"
 
 	"fmt"
 )
 
 func main() {
-
 	s, err := helpers.CopySlice([]int{1, 2, 3})
 	if err != nil {
 		fmt.Println(err.Error())
@@ -24,5 +23,4 @@ func main() {
 	}
 
 	fmt.Println(array)
-
 }

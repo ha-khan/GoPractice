@@ -15,10 +15,10 @@ func main() {
 }
 
 func CartesianProduct(input ...[]int) [][]int {
-	fn := func(a []int, b [][]int) [][]int {
+	fn := func(a []int, accumulator [][]int) [][]int {
 		var sol [][]int
 		for _, v1 := range a {
-			for _, v2 := range b {
+			for _, v2 := range accumulator {
 				temp := make([]int, len(v2))
 				copy(temp, v2)
 				temp = append(temp, v1)
@@ -29,10 +29,10 @@ func CartesianProduct(input ...[]int) [][]int {
 		return sol
 	}
 
-	var init = [][]int{{}}
+	var solution = [][]int{{}}
 	for _, v := range input {
-		init = fn(v, init)
+		solution = fn(v, solution)
 	}
 
-	return init
+	return solution
 }
