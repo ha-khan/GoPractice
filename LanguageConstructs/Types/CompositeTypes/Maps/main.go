@@ -36,8 +36,9 @@ func main() {
 	}
 
 	// len    - returns # of keys
-	// delete - removes a key/value
 	fmt.Println(counter, len(counter))
+
+	// delete - removes a key/value
 	delete(counter, Tuple{1, 2})
 	fmt.Println(counter, len(counter))
 
@@ -85,6 +86,10 @@ func main() {
 	}
 	fmt.Println("---------------")
 
+	// sort by hostname which is lexigraphical order
+	//
+	//
+	//
 	var hostnameSorted = make([]IP32, 0)
 	for key := range hosts {
 		hostnameSorted = append(hostnameSorted, key)

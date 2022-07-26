@@ -50,7 +50,8 @@ type Worker struct {
 	Counter     int
 	CounterLock sync.RWMutex
 
-	// keeps track of total amount of 'in-flight' requests
+	// creates a rate limit on the amount of threads
+	// allowed to invoke the Execute method
 	Semaphore *Semaphore
 }
 
