@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 )
 
@@ -45,12 +46,11 @@ format you see is mainly to ensure our tests' comprehensiveness.
 */
 
 func newFoo() *foo {
-	var (
-		f = &foo{ /*l2: &sync.RWMutex{}, l3: &sync.RWMutex{}*/ }
-	)
-
-	f.l2 = new(sync.RWMutex) //&sync.RWMutex{}
-	f.l3 = new(sync.RWMutex) //&sync.RWMutex{}
+	var f = &foo{
+		l2:      new(sync.RWMutex),
+		l3:      new(sync.RWMutex),
+		Builder: new(strings.Builder),
+	}
 
 	f.l2.Lock()
 	f.l3.Lock()
@@ -65,31 +65,34 @@ func newFoo() *foo {
 // locks are bit more overkill, but can reason about the problem easier as they are concurrency primitives
 type foo struct {
 	l2, l3 *sync.RWMutex
+
+	// embedding allows methods to be promoted
+	// to foo
+	*strings.Builder
 }
 
 func (f *foo) first() {
 	defer wg.Done()
-	fmt.Print("first")
+	f.WriteString("first")
 	f.l2.Unlock()
 }
 
 func (f *foo) second() {
 	defer wg.Done()
 	f.l2.Lock()
-	fmt.Print("second")
+	f.WriteString("second")
 	f.l3.Unlock()
 }
 
 func (f *foo) third() {
 	defer wg.Done()
 	f.l3.Lock()
-	fmt.Print("third")
+	f.WriteString("third")
 }
 
 var wg sync.WaitGroup
 
 func main() {
-
 	f := newFoo()
 
 	wg.Add(3)
@@ -100,4 +103,5 @@ func main() {
 
 	wg.Wait()
 
+	fmt.Println(f)
 }
