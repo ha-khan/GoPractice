@@ -4,6 +4,13 @@ import "fmt"
 
 func main() {
 
+	//
+	// closures
+	// first-class
+	// anonymous
+	// variadic
+	//
+	//
 	var t func(...int)
 	switch t {
 	case nil:

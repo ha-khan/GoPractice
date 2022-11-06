@@ -108,4 +108,17 @@ func main() {
 	for _, key := range hostnameSorted {
 		fmt.Println(key, hosts[key])
 	}
+	//--------------------------------------------------------------------
+	fmt.Println()
+	fmt.Println()
+	mp := make(map[string]Tuple)
+	val := Tuple{A: 1, B: 2}
+
+	// copies the value at this moment in time
+	mp["test"] = val
+	val.A = 3
+
+	mp["test"] = val
+	fmt.Println(val, mp["test"])
+
 }
